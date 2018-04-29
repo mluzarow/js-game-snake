@@ -125,6 +125,9 @@ class Snake {
 		}
 	}
 	
+	/**
+	 * Kill the player and game over.
+	 */
 	kill () {
 		clearInterval (this.gameLoop);
 		
@@ -134,6 +137,9 @@ class Snake {
 		}
 	}
 	
+	/**
+	 * Initialize the game state variables.
+	 */
 	initGameState () {
 		// Place player @ center(ish)
 		let vOrigin = Math.floor (this.boardHeight / 2);
@@ -159,6 +165,9 @@ class Snake {
 		this.input.y = -1;
 	}
 	
+	/**
+	 * Randomly place an apple on some unoccupied tile.
+	 */
 	placeApple () {
 		var localData = this.gameBoard;
 		var rowPos = 0;
