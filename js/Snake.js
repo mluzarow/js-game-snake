@@ -68,9 +68,9 @@ class Snake {
 	 */
 	gameLoop () {
 		var removeLastPlayerTile = true;
-		var curPos = {
-			"x" : this.snake[0].x,
-			"y" : this.snake[0].y
+		var lastPos = {
+			"x" : this.snake[this.snake.length - 1].x,
+			"y" : this.snake[this.snake.length - 1].y
 		};
 		var nextPos = {
 			"x" : this.snake[0].x + this.input.x,
@@ -78,8 +78,8 @@ class Snake {
 		}
 		
 		if (
-			(nextPos.y > this.boardHeight || nextPos.y < 0) ||
-			(nextPos.x > this.boardWidth || nextPos.x < 0)
+			(nextPos.y >= this.boardHeight || nextPos.y < 0) ||
+			(nextPos.x >= this.boardWidth || nextPos.x < 0)
 		) {
 			// Don't do anything if move escapes bounds
 			return;
@@ -100,8 +100,12 @@ class Snake {
 		for (var i = 0; i < this.snake.length; i++) {
 			let curX = this.snake[i].x;
 			let curY = this.snake[i].y;
+			
 			this.snake[i].x = newX;
 			this.snake[i].y = newY;
+			
+			this.gameBoard[newY][newX] = this.TILE_FULL;
+			
 			newX = curX;
 			newY = curY;
 		}
@@ -110,8 +114,10 @@ class Snake {
 		
 		if (removeLastPlayerTile === true) {
 			this.$gameBoard.children[oldY].children[oldX].classList.remove ("player");
+			this.gameBoard[oldY][oldX] = this.TILE_EMPTY;
 		} else {
-			this.snake.push (curPos);
+			this.snake.push (lastPos);
+			this.placeApple ();
 		}
 	}
 	
@@ -136,6 +142,7 @@ class Snake {
 		
 		this.placeApple();
 		
+		this.input.x = 0;
 		this.input.y = -1;
 	}
 	
