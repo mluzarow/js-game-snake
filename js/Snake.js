@@ -67,6 +67,11 @@ class Snake {
 	 * Main game loop.
 	 */
 	gameLoop () {
+		var removeLastPlayerTile = true;
+		var curPos = {
+			"x" : this.snake[0].x,
+			"y" : this.snake[0].y
+		};
 		var nextPos = {
 			"x" : this.snake[0].x + this.input.x,
 			"y" : this.snake[0].y + this.input.y
@@ -83,16 +88,31 @@ class Snake {
 		if (this.gameBoard[nextPos.y][nextPos.x] !== this.TILE_EMPTY) {
 			if (this.gameBoard[nextPos.y][nextPos.x] === this.TILE_APPLE) {
 				this.$gameBoard.children[nextPos.y].children[nextPos.x].classList.remove ("apple");
+				removeLastPlayerTile = false;
 			}
 		}
 		
-		// Append new node
-		this.snake.unshift (nextPos);
-		this.$gameBoard.children[nextPos.y].children[nextPos.x].classList.add ("player");
+		var newX = nextPos.x;
+		var newY = nextPos.y;
+		var oldX = this.snake[this.snake.length - 1].x;
+		var oldY = this.snake[this.snake.length - 1].y;
 		
-		// Remove old last node
-		this.$gameBoard.children[this.snake[this.snake.length - 1].y].children[this.snake[this.snake.length - 1].x].classList.remove ("player");
-		this.snake.pop ();
+		for (var i = 0; i < this.snake.length; i++) {
+			let curX = this.snake[i].x;
+			let curY = this.snake[i].y;
+			this.snake[i].x = newX;
+			this.snake[i].y = newY;
+			newX = curX;
+			newY = curY;
+		}
+		
+		this.$gameBoard.children[this.snake[0].y].children[this.snake[0].x].classList.add ("player");
+		
+		if (removeLastPlayerTile === true) {
+			this.$gameBoard.children[oldY].children[oldX].classList.remove ("player");
+		} else {
+			this.snake.push (curPos);
+		}
 	}
 	
 	initGameState () {
