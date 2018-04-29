@@ -16,8 +16,8 @@ class Setup {
 		
 		this.$startBtn = document.getElementById("setup-start_btn");
 		
-		this.$inputWidth.value = "50";
-		this.$inputHeight.value = "25";
+		this.$inputWidth.value = "30";
+		this.$inputHeight.value = "15";
 		
 		this.inputValidation = new RegExp("^[0-9]+$");
 		
