@@ -1,0 +1,190 @@
+html,
+body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	background-color: #000;
+	text-align: center;
+}
+
+/* -------- Setup popup -------- */
+#setup-wrap {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+#setup-wrap::before {
+	width: 0;
+	height: 100%;
+	display: inline-block;
+	content: '';
+	vertical-align: middle;
+}
+
+#setup-popup {
+	margin: 0 auto;
+	width: 80%;
+	max-width: 700px;
+	display: inline-block;
+	vertical-align: middle;
+	background-color: #121212;
+	border: 1px solid red;
+	border-radius: 6px;
+	color: red;
+	font-family: "Arial";
+}
+
+#setup-popup .title {
+	padding: 0.5em 0;
+	display: block;
+	font-size: 2em;
+}
+
+#setup-popup .choice-wrap {
+	padding: 1em;
+	font-size: 1.25em;
+}
+
+#setup-popup .choice-item_wrap {
+	padding: 0.2em;
+	display: block;
+}
+
+#setup-popup .choice-wrap .choice-text,
+#setup-popup .choice-wrap .choice-input_wrap {
+	width: 50%;
+	display: inline-block;
+}
+
+#setup-popup .choice-wrap .choice-input_wrap {
+	padding: 0.2em;
+	background-color: #686868;
+	box-sizing: border-box;
+}
+
+#setup-popup .choice-wrap .choice-input_wrap.error {
+	background-color: red;
+}
+
+#setup-popup .choice-wrap .choice-input {
+	width: 100%;
+	background-color: transparent;
+	border: none;
+}
+
+#setup-start_btn {
+	margin: 0 auto 0.5em auto;
+	padding: 5px;
+	width: 25%;
+	min-width: 175px;
+	border: 1px solid red;
+	box-sizing: border-box;
+	cursor: pointer;
+	color: red;
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+#setup-start_btn:hover {
+	background-color: red;
+	color: black;
+}
+
+/* -------- Game board -------- */
+#board-wrap {
+	position: relative;
+	height: 100%;
+	display: none;
+	overflow: hidden;
+}
+
+#board-wrap.active {
+	display: block;
+}
+
+#board {
+	position: absolute;
+}
+
+.game-row {
+	display: block;
+	border-top: 1px solid #818181;
+	white-space: nowrap;
+}
+
+.game-row:last-child {
+	border-bottom: 1px solid #818181;
+}
+
+.game-row .tile {
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+	border-left: 1px solid #818181;
+	box-sizing: border-box;
+}
+
+.game-row .tile:last-child {
+	border-right: 1px solid #818181;
+}
+
+.game-row .tile.player {
+	background-color: red;
+}
+
+.game-row .tile.apple {
+	background-color: green;
+}
+
+/* -------- Game Over Text -------- */
+.banner {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	color: green;
+	font-family: "Arial";
+	font-size: 22vw;
+}
+
+.banner::before {
+	width: 0;
+	height: 100%;
+	display: inline-block;
+	vertical-align: middle;
+	content: '';
+}
+
+.banner span {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+#banner-win {
+	display: none;
+	color: green;
+}
+
+#banner-lose {
+	display: none;
+	color: red;
+}
+
+@media screen and (max-width: 500px) {
+	#setup-popup {
+		width: 100%;
+		border-right: none;
+		border-left: none;
+		border-radius: 0;
+	}
+	
+	#setup-popup .choice-wrap .choice-text,
+	#setup-popup .choice-wrap .choice-input_wrap {
+		width: 100%;
+		display: block;
+	}
+}
