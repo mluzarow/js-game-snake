@@ -60,7 +60,7 @@ class Snake {
 		// Center the camera, add an apple, move player
 		this.initGameState();
 		
-		setInterval (this.gameLoop.bind (this), 500);
+		this.gameLoop = setInterval (this.gameLoop.bind (this), 500);
 	}
 	
 	/**
@@ -82,6 +82,7 @@ class Snake {
 			(nextPos.x >= this.boardWidth || nextPos.x < 0)
 		) {
 			// Don't do anything if move escapes bounds
+			this.kill ();
 			return;
 		}
 		
@@ -89,6 +90,9 @@ class Snake {
 			if (this.gameBoard[nextPos.y][nextPos.x] === this.TILE_APPLE) {
 				this.$gameBoard.children[nextPos.y].children[nextPos.x].classList.remove ("apple");
 				removeLastPlayerTile = false;
+			} else {
+				this.kill ();
+				return;
 			}
 		}
 		
@@ -118,6 +122,15 @@ class Snake {
 		} else {
 			this.snake.push (lastPos);
 			this.placeApple ();
+		}
+	}
+	
+	kill () {
+		clearInterval (this.gameLoop);
+		
+		for (var i = 0; i < this.snake.length; i++) {
+			this.$gameBoard.children[this.snake[i].y].children[this.snake[i].x].classList.remove ("player");
+			this.$gameBoard.children[this.snake[i].y].children[this.snake[i].x].classList.add ("dead");
 		}
 	}
 	

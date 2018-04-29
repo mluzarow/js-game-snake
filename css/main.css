@@ -135,6 +135,10 @@ body {
 	background-color: red;
 }
 
+.game-row .tile.dead {
+	background-color: grey;
+}
+
 .game-row .tile.apple {
 	background-color: green;
 }
